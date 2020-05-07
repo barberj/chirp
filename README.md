@@ -1,5 +1,7 @@
 # Chirp
 
+[Tutorial](https://www.youtube.com/watch?v=MZvmYaFkNJI)
+
 To start your Phoenix server:
 
   * Setup the project with `mix setup`
