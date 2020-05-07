@@ -18,7 +18,9 @@ defmodule Chirp.Timeline do
 
   """
   def list_posts do
-    Repo.all(Post)
+    Post
+    |> order_by({:desc, :id})
+    |> Repo.all
   end
 
   @doc """
@@ -109,6 +111,7 @@ defmodule Chirp.Timeline do
   end
 
   defp broadcast({:error, _reason} = error, _event), do: error
+
   defp broadcast({:ok, post}, event) do
     Phoenix.PubSub.broadcast(Chirp.PubSub, "posts", {event, post})
     {:ok, post}
