@@ -6,7 +6,7 @@ defmodule ChirpWeb.HeartbeatLive do
   def render(assigns) do
     ~L"""
       <div>
-        Hello World
+        Hello World <%= @beats %>
       </div>
     """
   end
@@ -14,13 +14,13 @@ defmodule ChirpWeb.HeartbeatLive do
   @impl true
   def handle_info(%{beat: count}, socket) do
     Logger.debug("ChirpWeb.HeartbeatLive beat=#{count}")
-    {:noreply, socket}
+    {:noreply, update(socket, :beats, fn _ -> count end)}
   end
 
   @impl true
   def mount(_params, _session, socket) do
     if connected?(socket), do: subscribe()
-    {:ok, socket}
+    {:ok, assign(socket, :beats, 0)}
   end
 
   defp subscribe() do
