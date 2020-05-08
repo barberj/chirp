@@ -20,19 +20,21 @@ defmodule Chirp.Timeline do
   def list_posts do
     Post
     |> order_by({:desc, :id})
-    |> Repo.all
+    |> Repo.all()
   end
 
   def inc_likes(%Post{id: id}) do
-    {1, [post]} = from(p in Post, where: p.id == ^id, select: p)
-    |> Repo.update_all(inc: [likes_count: 1])
+    {1, [post]} =
+      from(p in Post, where: p.id == ^id, select: p)
+      |> Repo.update_all(inc: [likes_count: 1])
 
     broadcast({:ok, post}, :post_updated)
   end
 
   def inc_reposts(%Post{id: id}) do
-    {1, [post]} = from(p in Post, where: p.id == ^id, select: p)
-    |> Repo.update_all(inc: [reposts_count: 1])
+    {1, [post]} =
+      from(p in Post, where: p.id == ^id, select: p)
+      |> Repo.update_all(inc: [reposts_count: 1])
 
     broadcast({:ok, post}, :post_updated)
   end

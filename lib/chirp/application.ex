@@ -14,9 +14,10 @@ defmodule Chirp.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Chirp.PubSub},
       # Start the Endpoint (http/https)
-      ChirpWeb.Endpoint
+      ChirpWeb.Endpoint,
       # Start a worker by calling: Chirp.Worker.start_link(arg)
       # {Chirp.Worker, arg}
+      Chirp.Heartbeat
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
